@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+#joinTable {
+	text-align: center;
+	width: auto;
+	height: auto;
+	margin: 0 auto;
+	font-size: 20px;
+	
+}
+
+#passtable {
+	text-align: center;
+	width: auto;
+	height: auto;
+	margin: 0 auto;
+	margin-bottom: 250px;
+}
+
+#mainTbl2 {
+	color: red;
+}
+#mainTbl3 {
+	color: red;
+}
+
+ #loginTbl{
+		text-align: center;
+	height: 300px;
+	width : 250px;
+	margin: 0 auto;
+	background: #e8f2fc;
+} 
+
+hr.one{
+border:none;
+border:1px dashed black;
+}
+
+
+#checkE2 {
+	font-size: 15px;
+	padding: 10px 50px;
+	color: black;
+background-color: #5791fe;	
+	font-weight: bold;
+	border: 0;
+	outline: 0;
+}
+
+#checkE2:hover {
+	color: black;
+	background-color:white;
+ text-decoration: none; 
+ border: 1px solid ;
+}

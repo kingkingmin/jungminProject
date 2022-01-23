@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.last.information.InformBoardmapper">
+
+
+<select id="getAllInforCount" resultType="java.lang.Integer">
+select count(*) from site_informBoard
+</select>
+
+<insert id="addinformBoardgo" parameterType="com.jm.last.information.inforboardValue" >
+
+insert into site_informBoard values(site_informBoard_seq.nextval, #{f_writter},#{f_categoryK},#{f_categoryJ}, #{f_sortK},#{f_sortJ},#{f_title},#{f_story},#{f_mapinfo1},#{f_mapinfo2},#{f_mapinfo3},#{f_mapinfoName},#{f_photo}, sysdate)
+
+</insert>
+
+<select id="callinforBoardgo" resultType="com.jm.last.information.inforboardValue">
+
+select * from site_informBoard
+
+</select>
+
+<select id="getSearchInforBoardCnt" parameterType="com.jm.last.information.NeedForSearchvalues" resultType="java.lang.Integer">
+
+	select count(*)
+	from site_informBoard
+	where f_title like '%'||#{f_title}||'%' and f_story like '%'||#{f_story}||'%' and f_writter like '%'||#{f_writter}||'%'
+	
+</select>
+<select id="getSearchMsgCntVerK2" parameterType="com.jm.last.information.NeedForSearchvaluesVerK2" resultType="java.lang.Integer">
+
+	select count(*)
+	from site_informBoard
+	where f_categoryK like '%'||#{f_categoryK}||'%' and f_sortK like '%'||#{f_sortK}||'%' 
+	
+</select>
+<select id="getSearchMsgCntVerJ2" parameterType="com.jm.last.information.NeedForSearchvaluesVerJ2" resultType="java.lang.Integer">
+
+	select count(*)
+	from site_informBoard
+	where f_categoryJ like '%'||#{f_categoryJ}||'%' and f_sortJ like '%'||#{f_sortJ}||'%' 
+	
+</select>
+
+
+<select id="getInforBoardBySearch" parameterType="com.jm.last.information.NeedForSearchvalues" resultType="com.jm.last.information.inforboardValue">
+select *
+		from (
+			select rownum as rn, f_no , f_writter,f_categoryK,f_sortK,f_categoryJ,f_sortJ,f_title,f_story,f_mapinfo1,f_mapinfo2,f_mapinfo3,f_mapinfoName,f_photo ,f_date
+			from(
+				select * from site_informBoard
+				where f_title like '%'||#{f_title}||'%' and f_story like '%'||#{f_story}||'%' and f_writter like '%'||#{f_writter}||'%'
+			    order by f_date desc
+				
+		     )
+		)
+		where rn &gt;= #{start} and rn &lt;= #{end}
+
+</select>
+<select id="getSearchInforBoardVerK2" parameterType="com.jm.last.information.NeedForSearchvaluesVerK2" resultType="com.jm.last.information.inforboardValue">
+select *
+		from (
+			select rownum as rn, f_no , f_writter,f_categoryK,f_sortK, f_categoryJ,f_sortJ, f_title,f_story,f_mapinfo1,f_mapinfo2,f_mapinfo3,f_mapinfoName,f_photo ,f_date
+			from(
+				select * from site_informBoard
+				where f_categoryK like '%'||#{f_categoryK}||'%' and f_sortK like '%'||#{f_sortK}||'%'
+			    order by f_date desc
+				
+		     )
+		)
+		where rn &gt;= #{start} and rn &lt;= #{end}
+
+</select>
+<select id="getSearchInforBoardVerJ2" parameterType="com.jm.last.information.NeedForSearchvaluesVerJ2" resultType="com.jm.last.information.inforboardValue">
+select *
+		from (
+			select rownum as rn, f_no , f_writter,f_categoryK,f_sortK,f_categoryJ,f_sortJ,f_title,f_story,f_mapinfo1,f_mapinfo2,f_mapinfo3,f_mapinfoName,f_photo ,f_date
+			from(
+				select * from site_informBoard
+				where f_categoryJ like '%'||#{f_categoryJ}||'%' and f_sortJ like '%'||#{f_sortJ}||'%'
+			    order by f_date desc
+				
+		     )
+		)
+		where rn &gt;= #{start} and rn &lt;= #{end}
+
+</select>
+
+<select id="getInforBoardMore" resultType="com.jm.last.information.inforboardValue" parameterType="com.jm.last.information.inforboardValue">
+
+select * from site_informBoard where f_no = #{f_no}
+
+</select>
+
+<delete id="delectInfordo" parameterType="com.jm.last.information.inforboardValue">
+
+		delete site_informBoard where f_no = #{f_no}
+
+</delete>
+
+<update id="updateInforgo" parameterType="com.jm.last.information.inforboardValue" >
+
+
+update site_informBoard set f_categoryK = #{f_categoryK}, f_sortK= #{f_sortK}, f_categoryJ = #{f_categoryJ}, f_sortJ= #{f_sortJ}, f_title= #{f_title},f_story= #{f_story},f_mapinfo1= #{f_mapinfo1} ,f_mapinfo2= #{f_mapinfo2},f_mapinfo3= #{f_mapinfo3},f_mapinfoName= #{f_mapinfoName}, f_photo= #{f_photo} ,f_date = #{f_date} where f_no = #{f_no}
+
+</update>
+
+
+<insert id="writeReply" parameterType="com.jm.last.information.InforReply">
+
+insert into site_infor_reply values(site_infor_reply_seq.nextval, #{sir_c_no}, #{sir_c_writer}, #{sir_c_comment}, sysdate)
+
+
+</insert>
+
+<select id="getReply" resultType="com.jm.last.information.InforReply" parameterType="com.jm.last.information.inforboardValue">
+
+select * from site_infor_reply
+where sir_c_no = #{f_no}
+order by sir_date
+
+</select>   
+
+
+<delete id="delectReply" parameterType="com.jm.last.information.InforReply">
+
+delete from site_infor_reply where sir_no = #{sir_no}
+
+</delete>
+
+</mapper>

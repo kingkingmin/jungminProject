@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.last.Basicmapper">
+
+<insert id="regmenugo" parameterType="com.jm.last.member">
+
+insert into site_member values (#{c_id},#{c_pw},#{c_name}, #{c_languageJ},#{c_languageK},  #{c_pwqJ},#{c_pwqK},  #{c_pwans}, #{c_email}, #{c_genderJ},#{c_genderK},  #{c_countryJ}, #{c_countryK}, #{c_comment}, #{c_photo} )
+
+
+</insert>
+
+<select id="getMemberById" resultType="com.jm.last.member" parameterType="com.jm.last.member">
+
+select * from site_member where c_id = #{c_id}
+
+</select>
+
+<delete id="bye" parameterType="com.jm.last.member">
+		delete site_member where c_id = #{c_id}
+	</delete>
+
+<update id="updategogo" parameterType="com.jm.last.member">
+
+update site_member set c_pw = #{c_pw}, c_photo= #{c_photo}, c_name=#{c_name},c_pwqJ=#{c_pwqJ},c_pwqK=#{c_pwqK}, c_pwans=#{c_pwans},c_email=#{c_email}, c_languageJ = #{c_languageJ} ,c_languageK = #{c_languageK} , c_comment = #{c_comment} where c_id = #{c_id}
+
+</update>
+
+<select id="getMenuByName" resultType="com.jm.last.member">
+
+select c_id from site_member 
+
+<!-- select * from site_member where c_id like '%'|| #{c_id} ||'%'
+ -->
+</select>
+
+<select id="getMenuByEmail" resultType="com.jm.last.member">
+
+select c_email from site_member 
+
+</select>
+
+<select id="getMenuByBlock" resultType="com.jm.last.BlockMember">
+
+select c_blocker from User_block where c_user = #{c_user}
+
+</select>
+
+<!--       밑에서부터 페이징 처리 부분           -->
+
+<select id="getAllMsgCount" resultType="java.lang.Integer">
+select count(*) from site_member
+</select>
+
+<select id="getSearchMsgCnt" resultType="java.lang.Integer" parameterType="com.jm.last.SNSSelector">
+	select count(*)
+	from site_member
+	where c_name like '%'||#{search}||'%' and c_genderK like '%'||#{c_genderK}||'%' and c_countryK like '%'||#{c_countryK}||'%'
+		
+	</select>
+	
+<select id="getSearchMsgCntForMail" resultType="java.lang.Integer" parameterType="com.jm.last.SNSSelectorForMail">
+	select count(*)
+	from site_mail
+	where c_getter = #{c_getter}	
+	
+	</select>
+
+<select id="getMsg" parameterType="com.jm.last.SNSSelector" resultType="com.jm.last.member">
+
+select *
+		from (
+			select rownum as rn, c_id, c_name, c_languageJ,c_languageK,  c_email , c_genderJ,c_genderK,  c_countryJ,c_countryK,  c_comment, c_photo
+			from(
+				select * from site_member
+				where c_name like '%'||#{search}||'%' and c_genderK like '%'||#{c_genderK}||'%' and c_countryK like '%'||#{c_countryK}||'%'
+
+		     )
+		)
+		where rn &gt;= #{start} and rn &lt;= #{end}
+
+</select>
+<select id="getMsgForMail" parameterType="com.jm.last.SNSSelectorForMail" resultType="com.jm.last.friend.sendmessage">
+
+select *
+		from (
+			select rownum as rn, c_no, c_sender, c_comment, c_date 
+			from(
+				select * from site_mail
+				where c_getter = #{c_getter} 
+				order by c_date desc
+		     )
+		)
+		where rn &gt;= #{start} and rn &lt;= #{end}
+
+</select>
+
+
+<insert id="plusUserForBlock" parameterType="com.jm.last.BlockMember">
+
+insert into User_block values ( #{c_user}, #{c_blocker})
+
+</insert>
+
+
+<select id="getblockmember" parameterType="com.jm.last.BlockMember" resultType="com.jm.last.BlockMember">
+
+select * from User_block where c_user = #{c_user}
+
+
+</select>
+
+
+<update id="UpdateUserForBlock" parameterType="com.jm.last.BlockMember2">
+
+update User_block set c_blocker = #{c_blocker} where c_user = #{c_user}
+
+</update>
+
+
+
+
+</mapper>

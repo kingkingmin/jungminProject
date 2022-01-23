@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.last.friend.Friendmapper">
+
+<select id="getfriendmember" resultType="com.jm.last.member">
+
+select * from site_member
+
+</select>
+
+<select id="getfriendmembermore" resultType="com.jm.last.member" parameterType="com.jm.last.member">
+
+select * from site_member where c_id = #{c_id}
+
+</select>
+
+<select id="getfriendmembername" resultType="com.jm.last.member" parameterType="com.jm.last.member">
+
+ select * from site_member where c_name = #{c_name}
+ 
+</select>
+
+
+
+<select id="getfriendgender" resultType="com.jm.last.member" parameterType="com.jm.last.member">
+
+select * from site_member where c_genderK like '%'||#{c_genderK}||'%'       
+
+</select>
+
+<select id="getfriendcountry" resultType="com.jm.last.member" parameterType="com.jm.last.member">
+
+select * from site_member where c_countryK = #{c_countryK}
+
+</select>
+
+<select id="getfriendinfo" resultType="com.jm.last.member" parameterType="com.jm.last.member">
+
+select * from site_member where c_genderK like '%'||#{c_genderK}||'%' and c_countryK like '%'||#{c_countryK}||'%'
+
+</select>
+
+<insert id="sendMsg" parameterType="com.jm.last.friend.sendmessage">
+
+insert into site_mail values(site_mail_seq.nextval, #{c_getter},#{c_sender},#{c_comment}, sysdate)
+
+
+</insert>
+
+<select id="getmessage" parameterType="com.jm.last.friend.sendmessage" resultType="com.jm.last.friend.sendmessage">
+
+select * from site_mail where c_getter = #{c_getter} 
+
+</select>
+
+
+<delete id="delectmessage" parameterType="com.jm.last.friend.sendmessage">
+
+		delete site_mail where c_no = #{c_no}
+
+
+</delete>
+
+<select id="GetTheMessageForCheck" parameterType="com.jm.last.friend.sendmessage" resultType="com.jm.last.friend.sendmessage">
+
+select * from site_mail where c_no = #{c_no}
+
+
+</select>
+
+
+</mapper>

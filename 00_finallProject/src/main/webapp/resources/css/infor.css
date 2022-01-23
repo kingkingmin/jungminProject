@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+
+
+#inforWritetable{
+	
+		margin: 0 auto;
+		padding-top:120px;
+		width: 700px;
+		height: 800px;
+		font-size: 20px;
+		
+}
+
+#inforoutside{
+	
+	background-color: #f4f4f4;
+}
+
+#inforWritetable2{
+	
+		
+		margin: 0 auto;
+		width: 800px;
+		height: 800px;
+		font-size: 20px;
+		
+}
+
+#titleinfor{
+	color: black;
+	font-size: 27px;
+	 font-weight: bold;
+}
+
+
+/* #map{
+			margin: 0 auto;
+	
+} */
+
+.textarea1{
+	width:500px; 
+	height:100px; 
+    resize:none;
+	
+}
+
+.InforReplyID{
+	
+	color: blue;
+	font-size: 20px;
+	
+}
+.InforReplyIDMe{
+	
+	color: orange;
+	font-size: 20px;
+	
+}
+
+#smReplyArea{
+	
+	text-align: left;
+	margin: 0 auto;
+	
+	padding-left: 20px;
+}
+
+.numberchangetable{
+	
+		
+		margin: 0 auto;
+	
+}
+
+.infortable2{
+	width: 1000px;
+	margin: 0 auto;
+	text-align:left;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	border: 1px solid;	
+	border-color: #dbdbdb;
+	background-color: white;
+}
+
+.infortable2:hover {
+  background-color: #f4f4f4;
+}
+
+.inforleft{
+		text-align:left;
+		margin: 0 auto;
+	
+}
+
+.WriteInforButton {
+	font-size: 15px;
+	padding: 9px 24px;
+	color: white;
+	background: #f45516;
+	font-weight: bold;
+	border-radius: 6px;
+	border: 0;
+outline: 0;
+}
+
+.WriteInforButton:hover {
+  background-color: white;
+	color: black;
+	border-radius: 6px;
+	border: 1px solid ;
+}

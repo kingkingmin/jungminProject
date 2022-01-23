@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.last.food.Foodmapper">
+
+<insert id="addinformfood" parameterType="com.jm.last.food.FoodInforValue">
+
+insert into food_infor values(food_infor_seq.nextval, #{f_name},#{f_kind},#{f_address},#{f_price},#{f_infor},#{f_service},#{f_phone},#{f_mapinfo1},#{f_mapinfo2},#{f_mapinfo3},#{f_mapinfoName},#{f_photo1},#{f_photo2},#{f_photo3})
+
+</insert>
+
+<select id="getAllfoodCount" resultType="java.lang.Integer">
+
+select count(*) from food_infor
+
+</select>
+
+<select id="getSearchFoodCnt" resultType="java.lang.Integer" parameterType="com.jm.last.food.NeedForFoodSearchValue">
+
+select count(*)
+	from food_infor
+	where f_name like '%'||#{f_name}||'%' and f_kind like '%'||#{f_kind}||'%' 
+	
+</select>
+
+<select id="getSearchInforBoardVer2" parameterType="com.jm.last.food.NeedForFoodSearchValue" resultType="com.jm.last.food.FoodInforValue">
+
+select *
+		from (
+			select rownum as rn, f_no, f_name,f_kind,f_address,f_price,f_infor,f_service,f_phone,f_mapinfo1,f_mapinfo2,f_mapinfo3,f_mapinfoName,f_photo1,f_photo2,f_photo3
+			from(
+				select * from food_infor
+				where f_name like '%'||#{f_name}||'%' and f_kind like '%'||#{f_kind}||'%' 
+
+		     )
+		)
+		where rn &gt;= #{start} and rn &lt;= #{end}
+
+
+</select>
+
+
+
+<select id="getfoodmore" parameterType="com.jm.last.food.FoodInforValue" resultType="com.jm.last.food.FoodInforValue">
+
+select * from food_infor where f_no = #{f_no}
+
+</select>
+
+<insert id="foodwriteReply" parameterType="com.jm.last.food.FoodReply">
+
+insert into site_food_reply values(site_food_reply_seq.nextval, #{sir_c_no}, #{sir_c_star},  #{sir_c_writer}, #{sir_c_comment}, sysdate)
+
+</insert>
+
+<select id="foodgetReply" resultType="com.jm.last.food.FoodReply" parameterType="com.jm.last.food.FoodInforValue">
+
+select * from site_food_reply
+where sir_c_no = #{f_no}
+order by sir_date
+
+</select> 
+
+
+<delete id="fooddelectReply" parameterType="com.jm.last.food.FoodReply">
+
+delete from site_food_reply where sir_no = #{sir_no}
+
+</delete>
+
+</mapper>
